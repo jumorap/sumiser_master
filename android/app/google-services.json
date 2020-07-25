@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "402011679884",
+    "firebase_url": "https://sumiser-master-vote-edit-c8dc1.firebaseio.com",
+    "project_id": "sumiser-master-vote-edit-c8dc1",
+    "storage_bucket": "sumiser-master-vote-edit-c8dc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402011679884:android:9c77753ba2940592df1fa9",
+        "android_client_info": {
+          "package_name": "com.sumiser_master"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402011679884-b5157rqvjv9eqb7pckg4lcnjeslepp2c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sumiser_master",
+            "certificate_hash": "f34937fa85115a89d8e33f118acffd9a747b0c0d"
+          }
+        },
+        {
+          "client_id": "402011679884-muv34j4cs20tr4imth56h4pbjrhtlc7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8p-H7976N8_hT8183t5tMOQzEl8vafQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402011679884-muv34j4cs20tr4imth56h4pbjrhtlc7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
