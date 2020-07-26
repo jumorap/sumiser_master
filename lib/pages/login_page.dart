@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sumiser_master/auth.dart';
 
 class LoginPage extends StatefulWidget {
+  final BaseAuth auth;
+
+  LoginPage({this.auth});
 
   @override
   State<StatefulWidget> createState() => new _LoginPageState();
@@ -12,16 +16,16 @@ enum FormType {
   register
 }
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
 class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final formKey = new GlobalKey<FormState>();
-
-  String _email;
-  String _password;
+  String _email, _password;
   FormType _formType = FormType.login;
 
   bool validateAndSave() {
-    final form = formKey.currentState;
+    final form = _formKey.currentState;
     if (form.validate()) {
       form.save();
       return true;
@@ -33,15 +37,11 @@ class _LoginPageState extends State<LoginPage> {
     if (validateAndSave()) {
       try {
         if (_formType == FormType.login) {
-          FirebaseUser user = (await FirebaseAuth.instance
-              .signInWithEmailAndPassword(
-              email: _email, password: _password)) as FirebaseUser;
-          print('Signed in: ${user.uid}');
+          String userId = await widget.auth.signinEmailPassword(_email, _password);
+          print('Signed in: $userId');
         } else {
-          FirebaseUser user = (await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-              email: _email, password: _password)) as FirebaseUser;
-          print('Registered in: ${user.uid}');
+          String userId = await widget.auth.createUserEmailPassword(_email, _password);
+          print('Registered in: $userId');
         }
       } catch (e) {
         print('Error: $e');
@@ -50,14 +50,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void moveToRegister() {
-    formKey.currentState.reset();
+    _formKey.currentState.reset();
     setState(() {
       _formType = FormType.register;
     });
   }
 
   void moveToLogin() {
-    formKey.currentState.reset();
+    _formKey.currentState.reset();
     setState(() {
       _formType = FormType.login;
     });
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           padding: EdgeInsets.all(24.0),
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: buildInputs() + buildSubmitButton(),
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
           prefixIcon: Icon(Icons.person),
           labelText: 'Email',
         ),
-        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+        validator: (value) => value.isEmpty ? 'Ingrese una dirección de correo válida' : null,
         onSaved: (value) => _email = value,
       ),
       TextFormField(
@@ -186,4 +186,27 @@ class _LoginPageState extends State<LoginPage> {
       ];
     }
   }
+
+  /*
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
+  void _register() async {
+    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
+      email: _email.text,
+      password: _password.text,
+    )) as FirebaseUser;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      _success = false;
+    }
+  }
+*/
 }
