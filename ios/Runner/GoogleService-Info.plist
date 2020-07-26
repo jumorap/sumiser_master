@@ -7,7 +7,7 @@
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.402011679884-8gsja6o7nclji36trmfaeq7du72bn684</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>402011679884-b5157rqvjv9eqb7pckg4lcnjeslepp2c.apps.googleusercontent.com</string>
+	<string>402011679884-acjsms6a466plmsgq3qlqc93gi9fkl1o.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBUMZZ1wb9r8p80x-7IuXkvTKU1g1623nI</string>
 	<key>GCM_SENDER_ID</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:402011679884:ios:fc584a2728e0c3aedf1fa9</string>
+	<string>1:402011679884:ios:83e23448bef8f720df1fa9</string>
 	<key>DATABASE_URL</key>
 	<string>https://sumiser-master-vote-edit-c8dc1.firebaseio.com</string>
 </dict>
