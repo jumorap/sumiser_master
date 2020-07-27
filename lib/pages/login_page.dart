@@ -4,8 +4,9 @@ import 'package:sumiser_master/auth.dart';
 
 class LoginPage extends StatefulWidget {
   final BaseAuth auth;
+  final VoidCallback onSignedIn;
 
-  LoginPage({this.auth});
+  LoginPage({this.auth, this.onSignedIn});
 
   @override
   State<StatefulWidget> createState() => new _LoginPageState();
@@ -16,10 +17,10 @@ enum FormType {
   register
 }
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+//final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class _LoginPageState extends State<LoginPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final _formKey = new GlobalKey<FormState>();
 
   String _email, _password;
   FormType _formType = FormType.login;
@@ -37,12 +38,13 @@ class _LoginPageState extends State<LoginPage> {
     if (validateAndSave()) {
       try {
         if (_formType == FormType.login) {
-          String userId = await widget.auth.signinEmailPassword(_email, _password);
+          String userId = await widget.auth.signInWithEmailAndPassword(_email, _password);
           print('Signed in: $userId');
         } else {
-          String userId = await widget.auth.createUserEmailPassword(_email, _password);
+          String userId = await widget.auth.createUserWithEmailAndPassword(_email, _password);
           print('Registered in: $userId');
         }
+        widget.onSignedIn();
       } catch (e) {
         print('Error: $e');
       }

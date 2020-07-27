@@ -1,22 +1,35 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 abstract class BaseAuth {
-  Future<String> signinEmailPassword(String _email, String _password);
-  Future<String> createUserEmailPassword(String _email, String _password);
+  Future<String> signInWithEmailAndPassword(String email, String password);
+  Future<String> createUserWithEmailAndPassword(String email, String password);
+  Future<String> currentUser();
+  Future<void> signOut();
 }
 
-// We use 'BaseAuth' like interface in Auth
-class Auth implements BaseAuth{
-  Future<String> signinEmailPassword(String _email, String _password) async {
-    FirebaseUser user = (await FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-    email: _email, password: _password)) as FirebaseUser;
-    return user.uid;
+class Auth implements BaseAuth {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  @override
+  Future<String> signInWithEmailAndPassword(String email, String password) async {
+    final FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    return user?.uid;
   }
 
-  Future<String> createUserEmailPassword(String _email, String _password) async {
-    FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password)) as FirebaseUser;
-    return user.uid;
+  @override
+  Future<String> createUserWithEmailAndPassword(String email, String password) async {
+    final FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    return user?.uid;
+  }
+
+  @override
+  Future<String> currentUser() async {
+    final FirebaseUser user = await _firebaseAuth.currentUser();
+    return user?.uid;
+  }
+
+  @override
+  Future<void> signOut() async {
+    return _firebaseAuth.signOut();
   }
 }
