@@ -52,14 +52,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void moveToRegister() {
-    _formKey.currentState.reset();
+    //_formKey.currentState.reset();
     setState(() {
       _formType = FormType.register;
     });
   }
 
   void moveToLogin() {
-    _formKey.currentState.reset();
+    //_formKey.currentState.reset();
     setState(() {
       _formType = FormType.login;
     });
@@ -171,12 +171,27 @@ class _LoginPageState extends State<LoginPage> {
       ];
     } else{
       return <Widget>[
-        RaisedButton(
-          child: Text(
-            'Create an account',
-            style: TextStyle(fontSize: 20.0),
+        // 'SizedBox' build a space enter the text fields and the button
+        SizedBox(
+          height: 15.0,
+        ),
+        Material(
+          child: MaterialButton(
+            minWidth: 150.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              //side: BorderSide(color: Colors.red),
+            ),
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              'Crear cuenta',
+              style: TextStyle(fontSize: 20.0),
+            ),
+            onPressed: validateAndSave,
+            highlightColor: Colors.blueAccent[100],
+            color: Colors.blueAccent,
+            textColor: Colors.white,
           ),
-          onPressed: validateAndSave,
         ),
         FlatButton(
           child: Text(
@@ -189,26 +204,4 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  /*
-  void dispose() {
-    _email.dispose();
-    _password.dispose();
-    super.dispose();
-  }
-
-  void _register() async {
-    final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
-      email: _email.text,
-      password: _password.text,
-    )) as FirebaseUser;
-    if (user != null) {
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-      });
-    } else {
-      _success = false;
-    }
-  }
-*/
 }
